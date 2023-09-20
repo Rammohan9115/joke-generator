@@ -2,6 +2,7 @@
 "use client"
 import React, { useState } from 'react';
 import { JokeParams } from '@/types';
+import { motion } from 'framer-motion';
 // JokeForm.tsx
 
 interface JokeFormProps {
@@ -43,7 +44,12 @@ interface JokeFormProps {
   
 
   return (
-    <div className='flex flex-col mt-5 pb-10'>
+    <motion.div className='flex flex-col mt-5 pb-10'
+      initial={{ opacity: 0, y: -50 }} 
+      animate={{ opacity: 1, y: 0 }} 
+      exit={{ opacity: 0, y: -50 }} 
+      transition={{ duration: 0.5 }} 
+    >
       <h1 className='flex align-center justify-center mt-5 text-3xl font-semibold mr-2 px-2.5 py-0.5 rounded dark:text-gray-800 ml-2 drop-shadow-[0_1.2px_1.2px_rgba(1,1,1,0.8)]'> Joke Parameters</h1>
       <div className='flex flex-grow flex-row align-center justify-center mt-8 hover:scale-150 transition'>
             <h1 className='mt-4'>Category:</h1>
@@ -109,7 +115,7 @@ interface JokeFormProps {
       <button className='align-center justify-center mt-1 bg-gray-500 hover:bg-gray-700 text-white font-bold py-3 px-3 rounded-full hover:scale-150 transition' onClick={handleParamsChange}>Apply Parameters</button>
       </div>
      
-    </div>
+    </motion.div>
   );
 };
 

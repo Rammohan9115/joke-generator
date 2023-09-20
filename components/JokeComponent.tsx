@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { JokeParams } from '@/types';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import * as XLSX from 'xlsx';
+import { motion } from 'framer-motion';
 
 interface JokeComponentProps {
   jokeParams: JokeParams;
@@ -69,20 +70,31 @@ const JokeComponent: React.FC<JokeComponentProps> = ({ jokeParams }) => {
   };
 
   return (
-    <div>
+    <motion.div initial={{ opacity: 0, y: -50 }} 
+    animate={{ opacity: 1, y: 0 }} 
+    exit={{ opacity: 0, y: -50 }} 
+    transition={{ duration: 0.5 }}  >
       <h1 className='flex align-center justify-center font-bold text-gray-800'>Rank jokes in your preference order and download.</h1>
-      
-      <DragDropContext onDragEnd={onDragEnd}>
+  
+      <DragDropContext
+        onDragEnd={(result) => onDragEnd(result)} // Explicitly type the event handler
+      >
         <Droppable droppableId="jokes">
           {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
+            <motion.div {...provided.droppableProps}  initial={{ opacity: 0 }}
+            animate={{ opacity: 1}}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            {...provided.droppableProps}
+            ref={provided.innerRef}>
               {jokeData.map((joke, index) => (
                 <Draggable key={index} draggableId={index.toString()} index={index}>
-                  {(provided) => (
+                  {(provided,snapshot) => (
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
+                     
                     >
                       {/*<h2>{joke.category}</h2>*/}
                       {joke.type === 'single' ? (
@@ -99,14 +111,14 @@ const JokeComponent: React.FC<JokeComponentProps> = ({ jokeParams }) => {
                 </Draggable>
               ))}
               {provided.placeholder}
-            </div>
+            </motion.div>
           )}
         </Droppable>
       </DragDropContext>
       <button  onClick={exportJokesToExcel} className='flex align-center justify-center bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded m-4 hover:scale-150'>
         Export Jokes as Excel
       </button>
-    </div>
+    </motion.div>
     
   );
 };
