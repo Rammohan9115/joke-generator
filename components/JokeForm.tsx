@@ -76,7 +76,7 @@ interface JokeFormProps {
       </div>
       <br />
       <div className='-mt-6 flex flex-row p-2 m-1 align-center justify-center transition'>
-        <div className='flex flex-row p-2 mb-1'> <h1 className='mb-2 mt-2'></h1>
+        <div className='flex md:flex-row flex-col p-2 mb-1'> <h1 className='mb-2 mt-2'></h1>
         <label className='ml-2 p-4  text-sm font-medium text-gray-900 dark:text-gray-900 hover:scale-150 transition'>
           NSFW: 
           <input className='m-2 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600' type="checkbox" name="nsfw" checked={flags.nsfw} onChange={handleCheckboxChange} />
